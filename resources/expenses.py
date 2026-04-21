@@ -99,7 +99,7 @@ def delete_expense(id):
     user_id = get_jwt_identity()
     expense = Expense.query.get(id)
 
-    # Ownership check (VERY IMPORTANT FOR RUBRIC)
+    # Ownership check (VERY IMPORTANT FOR SECURITY)
     if not expense or expense.user_id != user_id:
         return {"error": "Expense not found or unauthorized"}, 403
 

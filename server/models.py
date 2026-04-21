@@ -51,7 +51,7 @@ class Expense(db.Model):
     # Optional date tracking
     date = db.Column(db.String(50), nullable=True)
 
-    # Foreign key → ensures ownership
+    # Foreign key to associate expense with a user (ownership)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     # Helper method to convert model instance to dictionary (for JSON responses)
