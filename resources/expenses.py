@@ -1,6 +1,6 @@
 from flask import Blueprint, request
-from models import Expense
-from extensions import db
+from server.models import Expense
+from server.extensions import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 expense_bp = Blueprint("expenses", __name__)
