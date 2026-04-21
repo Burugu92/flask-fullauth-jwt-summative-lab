@@ -1,4 +1,4 @@
-from extensions import db, bcrypt
+from server.extensions import db, bcrypt
 
 
 # User model for authentication and ownership
@@ -55,7 +55,7 @@ class Expense(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     # Helper method to convert model instance to dictionary (for JSON responses)
-    
+
     def to_dict(self):
         return {
             "id": self.id,

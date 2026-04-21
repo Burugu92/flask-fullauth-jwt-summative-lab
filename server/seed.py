@@ -1,6 +1,6 @@
-from app import app
-from extensions import db
-from models import User, Expense
+from server.app import app
+from server.extensions import db
+from server.models import User, Expense
 from faker import Faker
 import random
 
@@ -28,7 +28,7 @@ def seed_data():
         print("Test user created.")
 
         # Create expenses
-        
+
         categories = ["Food", "Transport", "Utilities", "Entertainment", "Shopping"]
 
         expenses = []
