@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from server.config import Config
 from server.extensions import db, bcrypt, jwt, migrate
 
@@ -10,6 +11,9 @@ from resources.expenses import expense_bp
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Enable CORS
+    CORS(app)
 
     # Initialize extensions
     db.init_app(app)

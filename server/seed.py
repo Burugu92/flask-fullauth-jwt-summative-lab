@@ -17,15 +17,18 @@ def seed_data():
 
         print("Database reset complete.")
 
-        # Create test user
+        # Create test users
 
-        user = User(username="demo_user")
-        user.set_password("password123")
+        user1 = User(username="demo_user")
+        user1.set_password("password123")
 
-        db.session.add(user)
+        user2 = User(username="test_user")
+        user2.set_password("password123")
+
+        db.session.add_all([user1, user2])
         db.session.commit()
 
-        print("Test user created.")
+        print("Test users created.")
 
         # Create expenses
 
@@ -33,21 +36,34 @@ def seed_data():
 
         expenses = []
 
-        for _ in range(20):
+        # Expenses for user1
+        for _ in range(10):
             expense = Expense(
                 title=fake.sentence(nb_words=3),
                 amount=round(random.uniform(5, 500), 2),
                 category=random.choice(categories),
                 description=fake.text(max_nb_chars=50),
                 date=str(fake.date_this_year()),
-                user_id=user.id
+                user_id=user1.id
+            )
+            expenses.append(expense)
+
+        # Expenses for user2
+        for _ in range(10):
+            expense = Expense(
+                title=fake.sentence(nb_words=3),
+                amount=round(random.uniform(5, 500), 2),
+                category=random.choice(categories),
+                description=fake.text(max_nb_chars=50),
+                date=str(fake.date_this_year()),
+                user_id=user2.id
             )
             expenses.append(expense)
 
         db.session.add_all(expenses)
         db.session.commit()
 
-        print(f"{len(expenses)} fake expenses created for user '{user.username}'.")
+        print(f"{len(expenses)} fake expenses created for both users.")
 
 
 if __name__ == "__main__":

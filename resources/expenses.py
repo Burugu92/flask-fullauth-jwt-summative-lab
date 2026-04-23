@@ -42,7 +42,7 @@ def create_expense():
 
     # Validation
     if not data.get("title") or not data.get("amount"):
-        return {"error": "Title and amount are required"}, 400
+        return {"errors": ["Title and amount are required"]}, 400
 
     expense = Expense(
         title=data.get("title"),
@@ -72,7 +72,7 @@ def update_expense(id):
 
     # Check existence + ownership
     if not expense or expense.user_id != user_id:
-        return {"error": "Expense not found or unauthorized"}, 403
+        return {"errors": ["Expense not found or unauthorized"]}, 401
 
     data = request.get_json()
 
@@ -101,7 +101,7 @@ def delete_expense(id):
 
     # Ownership check (VERY IMPORTANT FOR SECURITY)
     if not expense or expense.user_id != user_id:
-        return {"error": "Expense not found or unauthorized"}, 403
+        return {"errors": ["Expense not found or unauthorized"]}, 401
 
     db.session.delete(expense)
     db.session.commit()

@@ -17,8 +17,8 @@ class User(db.Model):
     # Relationship: One user → many expenses
     expenses = db.relationship(
         "Expense",
-        backref="user",
-        cascade="all, delete",
+        backref=db.backref("user", lazy=True),
+        cascade="all, delete-orphan",
         lazy=True
     )
 
